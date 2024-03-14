@@ -1,4 +1,5 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
+
 const todoCardStyles = css`
   margin-bottom: 1rem;
   padding: 0.6rem 1rem;
@@ -14,6 +15,6 @@ const todoCardTitleStyles = css`
 `;
 
 export {
-    todoCardStyles,
-    todoCardTitleStyles,
-}
+  todoCardStyles,
+  todoCardTitleStyles,
+};

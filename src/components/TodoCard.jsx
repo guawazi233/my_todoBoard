@@ -2,26 +2,29 @@
  * @Author: xianxian 1453706865@qq.com
  * @Date: 2023-04-02 21:31:25
  * @LastEditors: xianxian 1453706865@qq.com
- * @LastEditTime: 2024-03-14 15:23:14
+ * @LastEditTime: 2024-03-14 18:00:57
  * @FilePath: \react_app\src\components\TodoCard.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
-import React, { useEffect, useState, useContext } from "react";
-import { css } from "@emotion/react";
-import AdminContext from "../context/AdminContext";
-import { todoCardStyles, todoCardTitleStyles } from "../constants/styles";
+import React, { useEffect, useState, useContext } from 'react';
+import { css } from '@emotion/react';
+import AdminContext from '../context/AdminContext';
+import { todoCardStyles, todoCardTitleStyles } from '../constants/styles';
+
 const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
 const DAY = 60 * HOUR;
 const UPDATE_INTERVAL = MINUTE;
-const TodoCard = ({ title, status, onDragStart, onRemove }) => {
+function TodoCard({
+  title, status, onDragStart, onRemove,
+}) {
   const [displayTime, setDisplayTime] = useState(status);
   const isAdmin = useContext(AdminContext);
   useEffect(() => {
     const updateDisplayTime = () => {
       const timePassed = new Date() - new Date(status);
-      let relativeTime = "刚刚";
+      let relativeTime = '刚刚';
       if (MINUTE <= timePassed && timePassed < HOUR) {
         relativeTime = `${Math.ceil(timePassed / MINUTE)} 分钟前`;
       } else if (HOUR <= timePassed && timePassed < DAY) {
@@ -39,8 +42,8 @@ const TodoCard = ({ title, status, onDragStart, onRemove }) => {
   }, [status]);
 
   const handleDragStart = (e) => {
-    e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setData("text/plain", title);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', title);
     onDragStart && onDragStart(e);
   };
   return (
@@ -57,8 +60,9 @@ const TodoCard = ({ title, status, onDragStart, onRemove }) => {
         {isAdmin && onRemove && (
           <button
             onClick={() => {
-              onRemove({title});
+              onRemove({ title });
             }}
+            type="button"
           >
             X
           </button>
@@ -66,5 +70,5 @@ const TodoCard = ({ title, status, onDragStart, onRemove }) => {
       </div>
     </li>
   );
-};
+}
 export default TodoCard;

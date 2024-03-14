@@ -2,16 +2,16 @@
  * @Author: xianxian 1453706865@qq.com
  * @Date: 2024-03-13 16:20:30
  * @LastEditors: xianxian 1453706865@qq.com
- * @LastEditTime: 2024-03-14 15:20:55
+ * @LastEditTime: 2024-03-14 17:52:11
  * @FilePath: \react_todoBoard\src\TodoColumn.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
-import { useState } from "react";
-import { css } from "@emotion/react";
-import TodoCard from "./TodoCard";
-import NewCard from "./NewCard";
-import { COLUMN_KEY_DONE } from "./TodoBoard";
+import React, { useState } from 'react';
+import { css } from '@emotion/react';
+import TodoCard from './TodoCard';
+import NewCard from './NewCard';
+
 function todoColumnStyles(bgColor) {
   return css`
     flex: 1 1;
@@ -46,38 +46,38 @@ function todoColumnStyles(bgColor) {
 }
 
 export default function TodoColumn({
-  cardList = [], //列表数据
+  cardList = [], // 列表数据
   bgColor,
   title,
-  setIsDragSource = () => {},
-  setIsDragTarget = () => {},
+  setIsDragSource = () => { },
+  setIsDragTarget = () => { },
   onDrop,
   setDragItem,
-  canAddNew = false, //是否可添加新卡片
+  canAddNew = false, // 是否可添加新卡片
   onAdd,
   onRemove,
 }) {
   const [showAdd, setShowAdd] = useState(true);
   const handleAdd = async () => {
-    setShowAdd(true); //窗口可见异步，渲染完后成current才有值
+    setShowAdd(true); // 窗口可见异步，渲染完后成current才有值
   };
-  const handleSubmit = (newCard) => { 
+  const handleSubmit = (newCard) => {
     onAdd && onAdd(newCard);
     setShowAdd(false);
   };
   return (
     <section
-      onDragStart={(e) => {
+      onDragStart={() => {
         setIsDragSource(true);
       }}
       onDragOver={(e) => {
         e.preventDefault();
-        e.dataTransfer.dropEffect = "move";
+        e.dataTransfer.dropEffect = 'move';
         setIsDragTarget(true);
       }}
       onDragLeave={(e) => {
         e.preventDefault();
-        e.dataTransfer.dropEffect = "none";
+        e.dataTransfer.dropEffect = 'none';
         setIsDragTarget(false);
       }}
       onDrop={(e) => {
@@ -94,22 +94,22 @@ export default function TodoColumn({
       <h2>
         {title}
         {canAddNew && (
-          <button onClick={handleAdd} disabled={showAdd}>
+          <button onClick={handleAdd} disabled={showAdd} type="button">
             &#8853; 添加新卡片
           </button>
         )}
       </h2>
       <ul>
-        {canAddNew && showAdd && <NewCard onSubmit={handleSubmit}></NewCard>}
+        {canAddNew && showAdd && <NewCard onSubmit={handleSubmit} />}
         {cardList?.map((props) => (
           <TodoCard
-            key={props.title}
             {...props}
+            key={props.title}
             onDragStart={() => {
               setDragItem(props);
             }}
             onRemove={onRemove}
-          ></TodoCard>
+          />
         ))}
       </ul>
     </section>

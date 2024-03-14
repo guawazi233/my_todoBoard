@@ -2,45 +2,44 @@
  * @Author: xianxian 1453706865@qq.com
  * @Date: 2023-03-12 22:42:37
  * @LastEditors: xianxian 1453706865@qq.com
- * @LastEditTime: 2024-03-14 16:10:39
+ * @LastEditTime: 2024-03-14 17:59:56
  * @FilePath: \react_app\src\App.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
-import { useState, useEffect } from "react";
-import AdminContext from "../context/AdminContext";
-import logo from "./logo.svg";
-import "./App.css";
-import TodoBoard from "../components/TodoBoard";
-import {
+import React, { useState, useEffect } from 'react';
+import AdminContext from '../context/AdminContext';
+import logo from './logo.svg';
+import './App.css';
+import TodoBoard, {
   COLUMN_KEY_TODO,
   COLUMN_KEY_ONGOING,
   COLUMN_KEY_DONE,
-} from "../components/TodoBoard";
+} from './TodoBoard';
 
-//日期库
-const DATA_STORE_KEY = "todo-data-store";
+// 日期库
+const DATA_STORE_KEY = 'todo-data-store';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [todoList, setTodoList] = useState([
-    { title: "开发任务-1", status: "2023-04-01 08:08" },
-    { title: "开发任务-2", status: "2023-03-02 08:08" },
-    { title: "开发任务-3", status: "2023-04-03 08:08" },
-    { title: "开发任务-4", status: "2023-04-04 08:08" },
+    { title: '开发任务-1', status: '2023-04-01 08:08' },
+    { title: '开发任务-2', status: '2023-03-02 08:08' },
+    { title: '开发任务-3', status: '2023-04-03 08:08' },
+    { title: '开发任务-4', status: '2023-04-04 08:08' },
   ]);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const [ongoingList, setOngoingList] = useState([
-    { title: "测试任务-1", status: "2023-04-01 08:08" },
-    { title: "测试任务-2", status: "2023-01-02 08:08" },
+    { title: '测试任务-1', status: '2023-04-01 08:08' },
+    { title: '测试任务-2', status: '2023-01-02 08:08' },
   ]);
 
   const [doneList, setDoneList] = useState([
-    { title: "摸鱼任务-1", status: "2023-04-01 08:08" },
-    { title: "摸鱼任务-2", status: "2024-01-02 08:08" },
+    { title: '摸鱼任务-1', status: '2023-04-01 08:08' },
+    { title: '摸鱼任务-2', status: '2024-01-02 08:08' },
   ]);
 
-  //减少重复代码，索引对象，少用if
+  // 减少重复代码，索引对象，少用if
   const updaters = {
     [COLUMN_KEY_TODO]: setTodoList,
     [COLUMN_KEY_ONGOING]: setOngoingList,
@@ -65,11 +64,8 @@ function App() {
   };
 
   const handleRemove = (column, cardToRemove) => {
-    //删除源数据
-    updaters[column]((origin) =>
-      // origin?.filter((item) => !Object.is(item, cardToRemove))
-      origin?.filter(item => item.title !== cardToRemove.title)
-    );
+    // 删除源数据
+    updaters[column]((origin) => origin?.filter((item) => item.title !== cardToRemove.title));
   };
 
   const handleSaveAll = () => {
@@ -81,7 +77,7 @@ function App() {
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
 
-  const handleToggleAdmin = (e) => {
+  const handleToggleAdmin = () => {
     setIsAdmin(!isAdmin);
   };
 
@@ -90,17 +86,16 @@ function App() {
       <header className="App-header">
         <h1>
           我的看板
-          <button onClick={handleSaveAll}>
-            保存所有卡片
-          </button>
-          <label>
-              <input
-                type="checkbox"
-                value={isAdmin}
-                onChange={handleToggleAdmin}
-              />
-              管理员模式
-            </label>
+          <button onClick={handleSaveAll} type="button">保存所有卡片</button>
+          <label htmlFor="isAdmin">
+            <input
+              type="checkbox"
+              value={isAdmin}
+              onChange={handleToggleAdmin}
+              id="isAdmin"
+            />
+            管理员模式
+          </label>
         </h1>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
@@ -112,7 +107,7 @@ function App() {
           doneList={doneList}
           onAdd={handleAdd}
           onRemove={handleRemove}
-        ></TodoBoard>
+        />
       </AdminContext.Provider>
     </div>
   );
