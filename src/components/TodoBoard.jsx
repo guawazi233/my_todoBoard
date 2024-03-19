@@ -40,14 +40,6 @@ export default function TodoBoard({
     onAdd(dragTarget, dragItem);
   };
 
-  const handleAdd = () => {
-    onAdd.bind(null, COLUMN_KEY_TODO);
-  };
-
-  const handleRemove = () => {
-    onRemove.bind(null, COLUMN_KEY_TODO);
-  };
-
   return (
     <main css={todoBoardStyles}>
       {isLoading ? (
@@ -72,7 +64,7 @@ export default function TodoBoard({
             onDrop={handleDrop}
             setDragItem={setDragItem}
             canAddNew // 是否可以添加新卡片
-            onAdd={handleAdd}
+            onAdd={onAdd?.bind(null, COLUMN_KEY_TODO)}
           />
           <TodoColumn
             key="进行中"
@@ -100,7 +92,7 @@ export default function TodoBoard({
               setDragTarget(isTgt ? COLUMN_KEY_DONE : null);
             }}
             onDrop={handleDrop}
-            onRemove={handleRemove}
+            onRemove={onRemove?.bind(null, COLUMN_KEY_DONE)}
             setDragItem={setDragItem}
           />
         </>

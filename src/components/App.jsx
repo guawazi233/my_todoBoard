@@ -1,13 +1,4 @@
-/*
- * @Author: xianxian 1453706865@qq.com
- * @Date: 2023-03-12 22:42:37
- * @LastEditors: xianxian 1453706865@qq.com
- * @LastEditTime: 2024-03-14 17:59:56
- * @FilePath: \react_app\src\App.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AdminContext from '../context/AdminContext';
 import logo from './logo.svg';
 import './App.css';
@@ -77,9 +68,9 @@ function App() {
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
 
-  const handleToggleAdmin = () => {
+  const handleToggleAdmin = useCallback(() => {
     setIsAdmin(!isAdmin);
-  };
+  }, [isAdmin]);
 
   return (
     <div className="App">
