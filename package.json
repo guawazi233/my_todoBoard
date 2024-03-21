@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "vite dev --open",
     "build": "vite build",
     "lint": "eslint ./src/**/*.{js,jsx}",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "e2e": "playwright test"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint"
@@ -20,6 +20,8 @@
   "private": true,
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.29",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
@@ -35,6 +37,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
+    "antd": "^5.15.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
