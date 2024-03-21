@@ -50,14 +50,14 @@ function App() {
     }, 1000);
   }, []);
 
-  const handleAdd = (column, newCard) => {
+  const handleAdd = useCallback((column, newCard) => {
     updaters[column]((origin) => [newCard, ...origin]);
-  };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleRemove = (column, cardToRemove) => {
+  const handleRemove = useCallback((column, cardToRemove) => {
     // 删除源数据
     updaters[column]((origin) => origin?.filter((item) => item.title !== cardToRemove.title));
-  };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSaveAll = () => {
     const data = JSON.stringify({
